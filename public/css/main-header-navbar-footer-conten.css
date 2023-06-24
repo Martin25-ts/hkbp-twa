@@ -1,0 +1,40 @@
+* {
+    /* scroll-behavior: smooth; */
+    text-decoration: none;
+}
+
+.button-popup-login {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    transition: transform 0.3s ease;
+    outline: none;
+    /* Remove the default focus outline */
+}
+
+.button-popup-login img {
+    width: 24px;
+    margin-right: 5px;
+}
+
+.button-popup-login:hover {
+    transform: scale(1.1);
+}
+
+.button-popup-login:focus {
+    outline: none;
+    border: none;
+    /* Remove the border on focus */
+}
+
+
+
+
+
+
