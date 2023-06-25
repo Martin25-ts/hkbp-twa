@@ -6,8 +6,7 @@
 @push('style-content')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/main-header-navbar-footer-conten.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('css/gambar.css/demo.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('css/gambar.css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/gereja.css') }}">
 @endpush
 
 
@@ -15,6 +14,7 @@
     <script src="{{ asset('js/main-navbar-responsive.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/gallery.js') }}"></script>
 @endpush
 
 
@@ -35,17 +35,17 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 @auth
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="/dashboard">Home<span class="sr-only">(current)</span></a>
                     </li>
                 @else
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
                     </li>
                 @endauth
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/gereja">GEREJA</a>
+                    <a class="nav-link active" href="/gereja">GEREJA</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">PARHALADO</a>
@@ -82,6 +82,60 @@
 
 @section('content')
 
+    <Section class="all-content">
+        <div class="container-gallery-main">
+            <div class="row-gallery">
+                <h2>GALLERY</h2>
+            </div>
+            <div class="row-gallery back" >
+                <img src="{{ asset('asset/Denah/BANGKU-JEMAAT.JPG') }}" alt="..." class="img-thumbnail">
+                <img src="{{ asset('asset/Denah/ALTAR_KANAN.JPG') }}" alt="..." class="img-thumbnail">
+                <img src="{{ asset('asset/Denah/BANGKU-JEMAAT -KANAN.JPG') }}" alt="..." class="img-thumbnail">
+            </div>
+            <div class="row-gallery back" >
+                <img src="{{ asset('asset/Denah/BANGKU-JEMAAT-KIRI.JPG') }}" alt="..." class="img-thumbnail">
+                <img src="{{ asset('asset/Denah/PENDETA.JPG') }}" alt="..." class="img-thumbnail">
+                <img src="{{ asset('asset/Denah/TAMPILAN-BELAKANG.JPG') }}" alt="..." class="img-thumbnail">
+            </div>
+        </div>
 
+        <div class="row-gallery">
+            <h2>HISTORY</h2>
+        </div>
+        <div class="container-gallery-history">
+
+            <div class="row-history">
+                <div class="column-left">
+                    <img src="{{ asset('asset/Live-Stream/IMG_2066.JPG') }}" alt="..." class="img-thumbnail">
+                </div>
+                <div class="column-right">
+                    <div class="row orien">
+                        <h1>Pesata Pembangunan</h1>
+
+                        <span>Minggu, 25 Juni 2023</span>
+                    </div>
+                    <div class="row2">
+                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum saepe quisquam unde autem nihil vel iusto, expedita voluptates et. Quidem, consectetur. Suscipit repudiandae doloribus eum culpa nemo rem, assumenda neque!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row-history">
+                <div class="column-left">
+
+                    <img src="{{ asset('asset/Live-Stream/IMG_2066.JPG') }}" alt="..." class="img-thumbnail">
+                </div>
+                <div class="column-righ">
+                    <div class="row orien">
+                        <h1>Pesata Pembangunan</h1>
+
+                        <span>Minggu, 25 Juni 2023</span>
+                    </div>
+                    <div class="row2">
+                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi deserunt laudantium, atque repellat pariatur nisi harum non nostrum recusandae ea saepe ex dolorem officia minus? Facere debitis quis nam quod!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Section>
 
 @endsection

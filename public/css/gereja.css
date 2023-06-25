@@ -1,0 +1,45 @@
+.all-content {
+    width: 100vw;
+}
+
+.container-gallery-main {
+    padding: 50px 0 50px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.row-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+
+.row-gallery img {
+    width: 30%;
+}
+
+.img-thumbnail {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .row-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .row-gallery img {
+        width: 75%;
+    }
+}
+
+
+
+
+
