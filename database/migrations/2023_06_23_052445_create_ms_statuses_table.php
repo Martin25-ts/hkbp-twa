@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ms_statuses', function (Blueprint $table) {
-            $table->char('statusis',5)->primary();
+            $table->char('statusid',5)->primary();
             $table->string('status',255);
 
         });

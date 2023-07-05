@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MsSunday;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,8 +15,27 @@ class DashboardController extends Controller
      */
     public function home()
     {
-        return view('dashboard');
+
+        $latestSunday = MsSunday::orderBy('sundaydate', 'desc')->first();
+
+        $today = Carbon::today();
+        $lastSunday = Carbon::parse($latestSunday->sundaydate);
+
+        if ($lastSunday->isPast()) {
+            $displayDate = $lastSunday;
+        } else {
+            $displayDate = $today->previous(Carbon::SUNDAY);
+        }
+
+        $sunday = MsSunday::where('sundaydate', $displayDate)->first();
+
+
+
+
+        return view('dashboard', compact('displayDate', 'sunday'));
     }
+
+
 
     public function gereja(){
         return view('gereja');

@@ -5,16 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ asset('js/pop-up-login-account.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    @stack('script-content')
+    <Script>
+        $(document).ready(function() {
+            $(window).on('resize', function() {
+                var screenWidth = $(window).width();
+                var screenHeight = $(window).height();
+
+                console.log("Lebar Layar: " + screenWidth);
+                console.log("Tinggi Layar: " + screenHeight);
+            });
+        });
+    </Script>
+
+
 
     @stack('style-content')
-    @stack('script-content')
-    @stack('font-content')
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/main-header-navbar-footer-conten.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pop-up-login-account.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        body {
+           transition: filter 0.3s ease-out;
+       }
+       .blur {
+           filter: blur(4px);
+       }
+   </style>
+
+
+
+    @stack('font-content')
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+
     <link rel="shortcut icon" href="{{ asset('asset/Logo/Logo-Hkbp.png') }}">
+
     <title>@yield('title')</title>
+
+
 </head>
 
 <body>
@@ -140,5 +178,38 @@
         </style>
     </footer>
 </body>
+@auth
+
+@else
+    <div class="login-box" style="display: none">
+        <p>Login</p>
+        <form>
+        <div class="user-box">
+            <input required="" name="email" type="text">
+            <label>Email</label>
+            <small>error</small>
+
+        </div>
+        <div class="user-box">
+            <input required="" name="email" type="password">
+            <label>Password</label>
+            <small>error</small>
+        </div>
+        <div class="content">
+            <label class="checkBox">
+              <input id="ch1" type="checkbox">
+              <div class="transition"></div>
+            </label>
+          </div>
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+        </a>
+        </form>
+    </div>
+@endauth
 
 </html>

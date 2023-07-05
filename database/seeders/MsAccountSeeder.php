@@ -14,6 +14,8 @@ class MsAccountSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $acc = [
+
+        ];
     }
 }

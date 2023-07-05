@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('sundayid');
             $table->unsignedBigInteger('accountid');
             $table->date('sundaydate');
+            $table->string('sundaythumbnail',255);
             $table->string('sundayagenda',255);
             $table->string('sundaywarta',255);
             $table->string('sundaylive',255);

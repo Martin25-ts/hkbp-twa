@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class MsStatus extends Model
 {
     use HasFactory;
+    protected $table = 'ms_statuses';
+    protected $primaryKey = 'statusid';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'statusid',
+        'status',
+    ];
+
+    public $timestamps = false;
 }

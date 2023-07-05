@@ -112,3 +112,36 @@
     background: #D9D9D9;
     transition: transform 0.6s ease;
 }
+
+
+/* berita */
+.card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-news{
+    background: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 9px;
+    padding: 20px;
+    margin-top: 35px;
+}
+/* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px; */
+.card-news .card-news-image{
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.card-news-title .display-1{
+    font-size: 300%;
+}
+
+.card-news-description{
+    justify-content: center;
+    max-width: 67vw;
+}
