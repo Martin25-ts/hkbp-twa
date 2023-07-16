@@ -17,21 +17,38 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
+    protected $table = 'users';
     protected $primaryKey = 'userid';
+    public $timestamps = true;
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'jemaatid',
+        'useremail',
+        'userpassword',
+        'roleid',
     ];
 
+    // Relationship dengan tabel MsGender
+    public function jemaat()
+    {
+        return $this->belongsTo(Jemaat::class, 'jemaatid');
+    }
+
+    // Relasi ke model Role
+    public function role()
+    {
+        return $this->belongsTo(MsRole::class, 'roleid');
+    }
+
+
     /**
+     *
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'passwordaccount',
         'remember_token',
     ];
 

@@ -1,3 +1,5 @@
+
+
 .login-box {
     position: fixed;
     top: 50%;
@@ -6,13 +8,13 @@
     padding: 40px;
     margin: 20px auto;
     transform: translate(-50%, -55%);
-    background: rgba(0,0,0,.9);
+    background: rgba(0, 0, 0, .9);
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
-  }
+}
 
-  .login-box p:first-child {
+.login-box p:first-child {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
@@ -20,13 +22,13 @@
     font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 1px;
-  }
+}
 
-  .login-box .user-box {
+.login-box .user-box{
     position: relative;
-  }
+}
 
-  .login-box .user-box input {
+.login-box .user-box input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -36,9 +38,9 @@
     border-bottom: 1px solid #fff;
     outline: none;
     background: transparent;
-  }
+}
 
-  .login-box .user-box label {
+.login-box .user-box label {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,17 +49,17 @@
     color: #fff;
     pointer-events: none;
     transition: .5s;
-  }
+}
 
-  .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
+.login-box .user-box input:focus~label,
+.login-box .user-box input:valid~label {
     top: -20px;
     left: 0;
     color: #fff;
     font-size: 12px;
-  }
+}
 
-  .login-box form a {
+.login-box form button {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -69,40 +71,43 @@
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
-    letter-spacing: 3px
-  }
+    letter-spacing: 3px;
+    background: transparent;
 
-  .login-box a:hover {
+}
+
+.login-box button:hover {
     background: #fff;
     color: #272727;
     border-radius: 5px;
-  }
+}
 
-  .login-box a span {
+.login-box button span {
     position: absolute;
     display: block;
-  }
+}
 
-  .login-box a span:nth-child(1) {
+.login-box button span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #fff);
     animation: btn-anim1 1.5s linear infinite;
-  }
+}
 
-  @keyframes btn-anim1 {
+@keyframes btn-anim1 {
     0% {
-      left: -100%;
+        left: -100%;
     }
 
-    50%,100% {
-      left: 100%;
+    50%,
+    100% {
+        left: 100%;
     }
-  }
+}
 
-  .login-box a span:nth-child(2) {
+.login-box button span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -110,19 +115,20 @@
     background: linear-gradient(180deg, transparent, #fff);
     animation: btn-anim2 1.5s linear infinite;
     animation-delay: .375s
-  }
+}
 
-  @keyframes btn-anim2 {
+@keyframes btn-anim2 {
     0% {
-      top: -100%;
+        top: -100%;
     }
 
-    50%,100% {
-      top: 100%;
+    50%,
+    100% {
+        top: 100%;
     }
-  }
+}
 
-  .login-box a span:nth-child(3) {
+.login-box button span:nth-child(3) {
     bottom: 0;
     right: -100%;
     width: 100%;
@@ -130,19 +136,20 @@
     background: linear-gradient(270deg, transparent, #fff);
     animation: btn-anim3 1.5s linear infinite;
     animation-delay: .75s
-  }
+}
 
-  @keyframes btn-anim3 {
+@keyframes btn-anim3 {
     0% {
-      right: -100%;
+        right: -100%;
     }
 
-    50%,100% {
-      right: 100%;
+    50%,
+    100% {
+        right: 100%;
     }
-  }
+}
 
-  .login-box a span:nth-child(4) {
+.login-box button span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
@@ -150,39 +157,40 @@
     background: linear-gradient(360deg, transparent, #fff);
     animation: btn-anim4 1.5s linear infinite;
     animation-delay: 1.125s
-  }
+}
 
-  @keyframes btn-anim4 {
+@keyframes btn-anim4 {
     0% {
-      bottom: -100%;
+        bottom: -100%;
     }
 
-    50%,100% {
-      bottom: 100%;
+    50%,
+    100% {
+        bottom: 100%;
     }
-  }
+}
 
-  .login-box p:last-child {
+.login-box p:last-child {
     color: #aaa;
     font-size: 14px;
-  }
+}
 
-  .login-box a.a2 {
+.login-box button.a2 {
     color: #fff;
     text-decoration: none;
-  }
+}
 
-  .login-box a.a2:hover {
-    background: transparent;
+.login-box button.a2:hover {
+    /* background: ; */
     color: #aaa;
     border-radius: 5px;
-  }
+}
 
-  .clear {
+.clear {
     clear: both;
-  }
+}
 
-  .checkBox {
+.checkBox {
     display: block;
     cursor: pointer;
     width: 30px;
@@ -192,9 +200,9 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0px 0px 0px 2px #fff;
-  }
+}
 
-  .checkBox div {
+.checkBox div {
     width: 60px;
     height: 60px;
     background-color: #fff;
@@ -203,32 +211,120 @@
     position: absolute;
     transform: rotateZ(45deg);
     z-index: 100;
-  }
+}
 
-  .checkBox input[type=checkbox]:checked + div {
+.checkBox input[type=checkbox]:checked+div {
     left: -10px;
     top: -10px;
-  }
+}
 
-  .checkBox input[type=checkbox] {
+.checkBox input[type=checkbox] {
     position: absolute;
     left: 50px;
     visibility: hidden;
-  }
+}
 
-  .transition {
+.transition {
     transition: 300ms ease;
-  }
+}
 
 
 
-  @keyframes fadeIn {
+@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
     }
+}
+
+
+
+
+.card-profile {
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    gap: 0px;
+    overflow: hidden;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.062);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+}
+
+#cookieSvg {
+    width: 100px;
+}
+
+#cookieSvg g path {
+    fill: rgb(97, 81, 81);
+}
+
+.cookieHeading {
+    font-size: 1.2em;
+    font-weight: 800;
+    color: rgb(26, 26, 26);
+}
+
+.cookieDescription {
+    text-align: center;
+    font-size: 1em;
+    font-weight: 600;
+    color: rgb(99, 99, 99);
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.acceptButton {
+    width: 80px;
+    height: 30px;
+    background-color: #7b57ff;
+    transition-duration: .2s;
+    border: none;
+    color: rgb(241, 241, 241);
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.declineButton {
+    width: 80px;
+    height: 30px;
+    background-color: rgb(218, 218, 218);
+    transition-duration: .2s;
+    color: rgb(46, 46, 46);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.declineButton:hover {
+    background-color: #ebebeb;
+    transition-duration: .2s;
+}
+
+.acceptButton:hover {
+    background-color: #9173ff;
+    transition-duration: .2s;
+}
+
+
+button:focus{
+    outline: none;
 }

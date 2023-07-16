@@ -29,4 +29,24 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+
+    protected $middleware = [
+        // Middleware lainnya
+        \Barryvdh\HttpCache\Middleware\CacheRequests::class,
+    ];
+
+    protected $middlewareGroups = [
+        'web' => [
+            // Middleware lainnya
+            \Barryvdh\HttpCache\Middleware\CacheRequests::class,
+        ],
+    ];
+
+    protected $routeMiddleware = [
+        // ...
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    ];
+
+
 }

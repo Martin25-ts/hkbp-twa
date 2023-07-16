@@ -19,5 +19,10 @@ class MsGender extends Model
         'gender',
     ];
 
+    public function jemaats()
+    {
+        return $this->hasMany(Jemaat::class, 'genderid');
+    }
+
     public $timestamps = false;
 }

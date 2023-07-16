@@ -20,5 +20,11 @@ class MsRelationship extends Model
         'relationship',
     ];
 
+
+    public function jemaats()
+    {
+        return $this->hasMany(Jemaat::class, 'relationshipid');
+    }
+
     public $timestamps = false; // Nonaktifkan timestamps
 }

@@ -16,11 +16,11 @@ class MsStatusSeeder extends Seeder
     public function run()
     {
         $status = [
-
             ['statusid' => 'ST001' , 'status' => 'Active'],
-            ['statusid' => 'ST002' , 'status' => 'Rpp'],
+            ['statusid' => 'ST002' , 'status' => 'RPP'],
             ['statusid' => 'ST003' , 'status' => 'Suspended'],
             ['statusid' => 'ST004' , 'status' => 'banned'],
+            ['statusid' => 'ST005' , 'status' => 'Move'],
         ];
 
         DB::table('ms_statuses')->insert($status);

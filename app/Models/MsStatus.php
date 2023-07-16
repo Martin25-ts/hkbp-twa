@@ -18,5 +18,11 @@ class MsStatus extends Model
         'status',
     ];
 
+    public function jemaats()
+    {
+        return $this->hasMany(Jemaat::class, 'statusid');
+    }
+
+
     public $timestamps = false;
 }

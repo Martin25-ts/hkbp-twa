@@ -2,50 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
-use App\Models\MsAccount;
-use App\Models\MsSunday;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
-class DashboardController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function home()
+    public function index(Request $req)
     {
 
-        $latestSunday = MsSunday::orderBy('sundaydate', 'desc')->first();
-
-        $today = Carbon::today();
-        $lastSunday = Carbon::parse($latestSunday->sundaydate);
-
-        if ($lastSunday->isPast()) {
-            $displayDate = $lastSunday;
-        } else {
-            $displayDate = $today->previous(Carbon::SUNDAY);
-        }
-
-        $sunday = MsSunday::where('sundaydate', $displayDate)->first();
-
-        $beritas = Berita::where('beritatime', '>=', $today)->orderBy('beritatime')->get();
-
-
-
-
-        return view('dashboard', compact('displayDate', 'sunday','beritas'));
-    }
-
-
-
-    public function gereja(){
-        return view('gereja');
     }
 
     /**

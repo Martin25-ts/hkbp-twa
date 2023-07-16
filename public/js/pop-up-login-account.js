@@ -12,3 +12,20 @@ $(document).ready(function() {
         }
     });
 });
+
+
+$(document).ready(function() {
+    var button = $('#button-logout');
+    var loginBox = $('.card-profile');
+    var buttonclose = $('.declineButton');
+
+    button.click(function() {
+        loginBox.fadeIn(400);;
+    });
+
+    buttonclose.click(function(event) {
+
+        loginBox.hide();
+
+    });
+});

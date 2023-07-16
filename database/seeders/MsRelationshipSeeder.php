@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\MsRelationship;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\DB;
 
 class MsRelationshipSeeder extends Seeder
 {
@@ -17,14 +18,22 @@ class MsRelationshipSeeder extends Seeder
 
      public function run()
      {
-         $relationships = [
-             ['relationshipid' => $this->generateRandomId(5), 'relationship' => 'single'],
-             ['relationshipid' => $this->generateRandomId(5), 'relationship' => 'married'],
-         ];
+        $relationships = [
+            [
+                'relationshipid' => 'RS001',
+                'relationship' => 'single'
+            ],
+            [
+                'relationshipid' => 'RS002',
+                'relationship' => 'married'
+            ],
+            // [
+            //     'relationshipid' => 'RS003',
+            //     'relationship' => ''
+            // ],
+        ];
 
-         foreach ($relationships as $relationshipData) {
-             MsRelationship::create($relationshipData);
-         }
+        DB::table('ms_relationships')->insert($relationships);
      }
 
      /**
@@ -33,17 +42,4 @@ class MsRelationshipSeeder extends Seeder
       * @param int $length
       * @return string
       */
-     private function generateRandomId($length)
-     {
-         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
-         $charactersLength = strlen($characters);
-         $randomId = '';
-
-         for ($i = 0; $i < $length; $i++) {
-             $randomId .= $characters[rand(0, $charactersLength - 1)];
-         }
-
-         return $randomId;
-     }
-
 }

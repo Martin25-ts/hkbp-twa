@@ -35,12 +35,13 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-           transition: filter 0.3s ease-out;
-       }
-       .blur {
-           filter: blur(4px);
-       }
-   </style>
+            transition: filter 0.3s ease-out;
+        }
+
+        .blur {
+            filter: blur(4px);
+        }
+    </style>
 
 
 
@@ -180,34 +181,57 @@
 </body>
 @auth
 
+
+    <div class="card-profile" style="display: none">
+        <video width="100" height="100" preload="none"
+            style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/11186/11186790.png') 50% 50% / fit no-repeat;"
+            autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="1622017">
+            <source src="https://cdn-icons-mp4.flaticon.com/512/11186/11186790.mp4" type="video/mp4">
+        </video>
+        <p class="cookieHeading">Role {{ Auth::user()->role->role}}</p>
+        <p class="cookieDescription">{{Auth::user()->jemaat->jemaatfname}} {{Auth::user()->jemaat->jemaatlname}}</p>
+
+        <div class="buttonContainer">
+            <form action="/logout" method="get">
+                <button class="acceptButton">Logout</button>
+            </form>
+
+            <button class="declineButton" id="declineButton">Close</button>
+        </div>
+
+
+    </div>
 @else
     <div class="login-box" style="display: none">
         <p>Login</p>
-        <form>
-        <div class="user-box">
-            <input required="" name="email" type="text">
-            <label>Email</label>
-            <small>error</small>
+        <form action="/login" method="POST">
+            @csrf
+            <div class="user-box">
+                <input required name="email" id="email" type="text" value={{Cookie::get('mycookie') !== null ? Cookie::get('mycookie') : ""}}>
+                <label>Email</label>
+                <small style="display: none">error</small>
 
-        </div>
-        <div class="user-box">
-            <input required="" name="email" type="password">
-            <label>Password</label>
-            <small>error</small>
-        </div>
-        <div class="content">
-            <label class="checkBox">
-              <input id="ch1" type="checkbox">
-              <div class="transition"></div>
-            </label>
-          </div>
-        <a href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-        </a>
+            </div>
+            <div class="user-box">
+                <input required name="password" id="password" type="password" value={{Cookie::get('mypassword') !== null ? Cookie::get('mypassword') : ""}}>
+                <label>Password</label>
+                <small style="display: none">error</small>
+            </div>
+            <div class="content" style="display: flex; gap: 8px; color: white">
+                <label class="checkBox">
+                    <input id="ch1" type="checkbox" name="remember" id="remember">
+                    <div class="transition"></div>
+
+                </label>
+                <label for="checkbox">Remember Me</label>
+            </div>
+            <button class="a2" type="submit" value="Login">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Login
+            </button>
         </form>
     </div>
 @endauth

@@ -17,17 +17,45 @@ class MsSundaySeeder extends Seeder
     public function run()
     {
         $sunday = [
-            'accountid' => '1',
-            'sundaydate' => '2023-07-02',
-            'sundaythumbnail' => 'thumbnail.png',
-            'sundayagenda' => 'acara.pdf',
-            'sundaywarta' => 'warta.pdf',
-            'sundaylive' => 'https://www.youtube.com/live/afEb_wkBDRY?feature=share',
-            'sundaydescription' => 'Live Streaming akan di adakan setiap hari minggu pada ibadah pukul 11.15',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+
+            [
+                'userid' => '1',
+                'sundaydate' => '2023-06-25',
+                'sundaythumbnail' => 'thumbnail.png',
+                'sundayagenda' => 'acara.pdf',
+                'sundaywarta' => 'warta.pdf',
+                'sundaylive' => 'https://www.youtube.com/live/2TtGvKbwQgk?feature=share',
+                'sundaydescription' => '',
+                'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
+
+            ],
+            [
+                'userid' => '1',
+                'sundaydate' => '2023-07-02',
+                'sundaythumbnail' => 'thumbnail.png',
+                'sundayagenda' => 'acara.pdf',
+                'sundaywarta' => 'warta.pdf',
+                'sundaylive' => 'https://www.youtube.com/live/afEb_wkBDRY?feature=share',
+                'sundaydescription' => '',
+                'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
+
+            ],
+            [
+                'userid' => '1',
+                'sundaydate' => '2023-07-09',
+                'sundaythumbnail' => 'thumbnail.png',
+                'sundayagenda' => 'acara.pdf',
+                'sundaywarta' => 'warta.pdf',
+                'sundaylive' => 'https://www.youtube.com/live/Wf2VOS_uNfg?feature=share',
+                'sundaydescription' => '',
+                'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
+
+            ]
         ];
 
-        DB::table('ms_sundays')->insert($sunday);
+        DB::table('sundays')->insert($sunday);
     }
 }

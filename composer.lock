@@ -4,8 +4,135 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aeaa0015f30cfd024249ed9b592560f2",
+    "content-hash": "9e81e6b4b8edf5ee21cf3a4ba7588ed1",
     "packages": [
+        {
+            "name": "barryvdh/laravel-httpcache",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-httpcache.git",
+                "reference": "d98ba82a8d782ab3fc8937885d9db3ef5875b294"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-httpcache/zipball/d98ba82a8d782ab3fc8937885d9db3ef5875b294",
+                "reference": "d98ba82a8d782ab3fc8937885d9db3ef5875b294",
+                "shasum": ""
+            },
+            "require": {
+                "barryvdh/laravel-stack-middleware": "^1.0",
+                "illuminate/support": "^9|^10",
+                "php": "^8",
+                "symfony/console": "^6",
+                "symfony/http-kernel": "^6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7|^8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\HttpCache\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\HttpCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "HttpCache for Laravel",
+            "keywords": [
+                "cache",
+                "esi",
+                "httpcache",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-httpcache/issues",
+                "source": "https://github.com/barryvdh/laravel-httpcache/tree/v1.0.0"
+            },
+            "time": "2023-02-05T14:58:21+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-stack-middleware",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-stack-middleware.git",
+                "reference": "1d667208bc835ff29b17afad86ead34454ae59af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-stack-middleware/zipball/1d667208bc835ff29b17afad86ead34454ae59af",
+                "reference": "1d667208bc835ff29b17afad86ead34454ae59af",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^9|^10",
+                "php": "^8",
+                "symfony/http-kernel": "^6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7|^8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\StackMiddleware\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Stack": "Barryvdh\\StackMiddleware\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\StackMiddleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Stack Middleware for Laravel 5",
+            "keywords": [
+                "StackPHP",
+                "laravel",
+                "middleware",
+                "stack"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-stack-middleware/issues",
+                "source": "https://github.com/barryvdh/laravel-stack-middleware/tree/v1.3.1"
+            },
+            "time": "2023-02-05T14:53:19+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
