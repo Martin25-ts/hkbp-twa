@@ -39,7 +39,7 @@
             <ul class="navbar-nav mr-auto">
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/dashboard">HOME<span class="sr-only">(current)</span></a>
                     </li>
                 @else
                     <li class="nav-item">
@@ -65,60 +65,16 @@
                 </li>
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">ACCOUNT</a>
-                    </li>
+                    @if (Auth::user()->role->role === 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">ACCOUNT</a>
+                        </li>
+                    @endif
                 @endauth
 
             </ul>
             <span class="navbar-text">
                 @auth
-                    <style>
-                        .button-logout {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            padding: 6px 12px;
-                            gap: 8px;
-                            height: 36px;
-                            width: 120px;
-                            border: none;
-                            background: #5e41de33;
-                            border-radius: 20px;
-                            cursor: pointer;
-                            outline: none;
-                        }
-
-                        .lable {
-                            line-height: 20px;
-                            font-size: 17px;
-                            color: #5D41DE;
-                            font-family: sans-serif;
-                            letter-spacing: 1px;
-                        }
-
-                        .button-logout:hover {
-                            background: #5e41de4d;
-                        }
-
-                        .button-logout:hover .svg-icon {
-                            animation: spin 2s linear infinite;
-                        }
-
-                        .button-logout:focus{
-                            outline: none;
-                        }
-
-                        @keyframes spin {
-                            0% {
-                                transform: rotate(0deg);
-                            }
-
-                            100% {
-                                transform: rotate(360deg);
-                            }
-                        }
-                    </style>
                     <button class="button-logout" id="button-logout">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none"
                             class="svg-icon">
@@ -238,16 +194,17 @@
 
 
                 @auth
-                    <button type="button" class="button">
-
-                        <span class="button__text">Add Item</span>
-                        <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-                                stroke="currentColor" height="24" fill="none" class="svg">
-                                <line y2="19" y1="5" x2="12" x1="12"></line>
-                                <line y2="12" y1="12" x2="19" x1="5"></line>
-                            </svg></span>
-                    </button>
+                    @if (Auth::user()->role->role === 'Admin')
+                        <button type="button" class="button-item">
+                            <span class="button__text">Add Item</span>
+                            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="currentColor" height="24" fill="none" class="svg">
+                                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                                </svg></span>
+                        </button>
+                    @endif
 
                 @endauth
 

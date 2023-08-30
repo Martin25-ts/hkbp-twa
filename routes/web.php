@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,5 +26,20 @@ Route::get('/dashboard', [DashboardController::class,'home'])->middleware('auth'
 Route::get('/gereja', [DashboardController::class,'gereja']);
 
 Route::get('/logout',[AuthController::class,'logout']);
-Route::post('/login',[AuthController::class,'login']);
+Route::post('/login',[AuthController::class,'login'])->name('login');
+
+// membuat orang ga bisa akses /login sembarangan
+Route::get('/login', function () {
+    return redirect('/');
+});
+
+Route::get('/naposo',[PageController::class,'index']);
+
+
+// sunday card
+Route::post('/sundaypost',[PostController::class,'sundaystore']);
+Route::post('/sundayupdate',[UpdateController::class,'sundayUpdate']);
+
+
+
 

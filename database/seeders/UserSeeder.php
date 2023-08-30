@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = [
-            'jemaatid' => '1',
-            'useremail' => 'martin.admin@hkbp.twa',
-            'userpassword' => bcrypt('Wismaasri127'),
-            'roleid' => 'RL001',
+            'jemaatid' => '2',
+            'useremail' => 'nina.admin@hkbp.twa',
+            'password' => bcrypt('Wismaasri127'),
+            'roleid' => 'RL004',
             'remember_token' => 'NULL',
             'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),

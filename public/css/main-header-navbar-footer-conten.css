@@ -1,7 +1,15 @@
 * {
     /* scroll-behavior: smooth; */
     text-decoration: none;
+    margin: 0;
+    padding: 0;
 }
+
+
+body {
+    overflow-x: hidden;
+}
+
 
 .button-popup-login {
     background-color: transparent;
@@ -83,6 +91,12 @@
     .button-popup-login, .button-popup-logout{
         display: none;
     }
+
+    body {
+        overflow-x: scroll;
+    }
+
+
 
 }
 

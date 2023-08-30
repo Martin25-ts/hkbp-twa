@@ -4,21 +4,67 @@
 
 
 @push('style-content')
+    @auth
+        @if (Auth::user()->role->role === 'Admin')
+            <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
+        @endif
+    @endauth
     <link rel="stylesheet" href="{{ asset('css/dashboard-content.css') }}">
 @endpush
 
 @push('script-content')
+
+
     <script>
-        var sundayData = @json($sunday);
-        var beritas = @json($beritas);
+        function fetchNewContent() {
+            // Implement the logic to get the last updated time of the last content loaded.
+            // For example, if the last updated time is stored in a data attribute like data-last-updated-time, you can use:
+            // let lastUpdatedTime = document.getElementById('your-element-id').getAttribute('data-last-updated-time');
 
-        delete sundayData.accountid;
+            // Replace the placeholder with your actual route URL for fetching new content
+            let url = '/fetch-new-content';
 
-        console.log(sundayData);
-        console.log(beritas);
+            $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    last_updated_time: lastUpdatedTime
+                },
+                success: function(response) {
+                    if (response.length > 0) {
+                        updateContent(response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
 
+        function updateContent(newContentData) {
+            // Implement the logic to update the content on the webpage using the newContentData received from the server.
+            // For example, you can loop through the newContentData and add new content dynamically to the page.
+        }
 
+        // Call the fetchNewContent function periodically to check for new content.
+        setInterval(fetchNewContent, 5000); // Set the interval as per your requirement (e.g., 5 seconds).
     </script>
+    @auth
+        @if (Auth::user()->role->role === 'Admin')
+            <script>
+                var sundayData = @json($sunday);
+                var beritas = @json($beritas);
+
+                delete sundayData.accountid;
+
+                console.log(sundayData);
+                console.log(beritas);
+            </script>
+            <script src="{{ asset('js/admin.js') }}"></script>
+        @else
+        @endif
+
+    @endauth
 @endpush
 
 @section('navbar')
@@ -41,7 +87,7 @@
             <ul class="navbar-nav mr-auto">
                 @auth
                     <li class="nav-item active">
-                        <a class="nav-link" href="/dashboard">Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/dashboard">HOME<span class="sr-only">(current)</span></a>
                     </li>
                 @else
                     <li class="nav-item active">
@@ -67,60 +113,16 @@
                 </li>
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">ACCOUNT</a>
-                    </li>
+                    @if (Auth::user()->role->role === 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">ACCOUNT</a>
+                        </li>
+                    @endif
                 @endauth
 
             </ul>
             <span class="navbar-text">
                 @auth
-                    <style>
-                        .button-logout {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            padding: 6px 12px;
-                            gap: 8px;
-                            height: 36px;
-                            width: 120px;
-                            border: none;
-                            background: #5e41de33;
-                            border-radius: 20px;
-                            cursor: pointer;
-                            outline: none;
-                        }
-
-                        .lable {
-                            line-height: 20px;
-                            font-size: 17px;
-                            color: #5D41DE;
-                            font-family: sans-serif;
-                            letter-spacing: 1px;
-                        }
-
-                        .button-logout:hover {
-                            background: #5e41de4d;
-                        }
-
-                        .button-logout:hover .svg-icon {
-                            animation: spin 2s linear infinite;
-                        }
-
-                        .button-logout:focus {
-                            outline: none;
-                        }
-
-                        @keyframes spin {
-                            0% {
-                                transform: rotate(0deg);
-                            }
-
-                            100% {
-                                transform: rotate(360deg);
-                            }
-                        }
-                    </style>
                     <button class="button-logout" id="button-logout">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none"
                             class="svg-icon">
@@ -175,7 +177,7 @@
                             <br>
                             <p>{{ $displayDate->format('l, d F Y') }}</p>
                         </h5>
-                        <p class="card-text">Live Streaming akan di adakan setiap hari minggu pada ibadah pukul 11.15
+                        <p class="card-text">{{ $sunday->sundaydescription }}
                         </p>
                     </div>
                     <div class="content-change">
@@ -190,8 +192,7 @@
                                     alt="Warta"></a>
                         </div>
 
-                        <button class="Btn">
-
+                        <button class="Btn-lihat">
                             <div class="sign"><svg viewBox="0 0 512 512">
                                     <path
                                         d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
@@ -204,11 +205,19 @@
                             </div>
                         </button>
                         @auth
-                            <div style="padding-left: 10px" class="admin-update">
-                                <form action="">
-                                    <input type="button" value="Update">
-                                </form>
-                            </div>
+                            @if (Auth::user()->role->role === 'Admin')
+                                <div class="controller-admin" style="display: flex; gap: 0.5rem">
+                                    <button class="update-button" id="update-sunday">Update</button>
+                                    <button class="cssbuttons-io-button" style="z-index: 999999" id="sunday-add-button">
+                                        <svg id="sunday-add-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            width="24" height="24">
+                                            <path fill="none" d="M0 0h24v24H0z"></path>
+                                            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+                                        </svg>
+                                        <span id="sunday-add-button">new</span>
+                                    </button>
+                                </div>
+                            @endif
                         @endauth
 
                     </div>
@@ -230,7 +239,7 @@
                     <div class="card-footer" style="display: flex; justify-content: space-between">
                         <small class="text-muted">Last updated 3 mins ago</small>
                         <div class="button-card" style="display: flex;">
-                            <button class="Btn">
+                            <button class="Btn-lihat">
 
                                 <div class="sign"><svg viewBox="0 0 512 512">
                                         <path
@@ -244,11 +253,9 @@
                                 </div>
                             </button>
                             @auth
-                                <div style="padding-left: 10px" class="admin-update">
-                                    <form action="">
-                                        <input type="button" value="Update">
-                                    </form>
-                                </div>
+                                @if (Auth::user()->role->role === 'Admin' || Auth::user()->role->role === 'Naposo')
+                                    <button class="update-button" id="update-sunday">Update</button>
+                                @endif
                             @endauth
                         </div>
 
@@ -270,7 +277,7 @@
                         <small class="text-muted">Last updated 3 mins ago</small>
 
                         <div class="button-card" style="display: flex;">
-                            <button class="Btn">
+                            <button class="Btn-lihat">
 
                                 <div class="sign"><svg viewBox="0 0 512 512">
                                         <path
@@ -284,11 +291,9 @@
                                 </div>
                             </button>
                             @auth
-                                <div style="padding-left: 10px" class="admin-update">
-                                    <form action="">
-                                        <input type="button" value="Update">
-                                    </form>
-                                </div>
+                                @if (Auth::user()->role->role === 'Admin' || Auth::user()->role->role === 'Remaja')
+                                    <button class="update-button" id="update-sunday">Update</button>
+                                @endif
                             @endauth
                         </div>
                     </div>
@@ -316,87 +321,23 @@
                                 alt="Responsive image">
                         </div>
 
-                        {{-- style button remove berita --}}
-
                         {{-- card title --}}
                         <div class="card-news-title" style="display: flex">
                             <h1 class="display-1">{{ $berita->beritatitle }}</h1>
                             @auth
-                                <div class="access-admin" style="display: flex; gap: 10px">
-                                    <div style="padding-left: 10px" class="admin-update">
-                                        <form action="">
-                                            <input type="button" value="Update">
-                                        </form>
+                                @if (Auth::user()->role->role === 'Admin')
+                                    <div class="access-admin" style="display: flex; gap: 10px">
+                                        <button class="update-button" id="update-sunday">Update</button>
+                                        {{-- <button class="button-delete">
+                                            <svg viewBox="0 0 448 512" class="svgIcon">
+                                                <path
+                                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                                                </path>
+                                            </svg>
+                                        </button> --}}
                                     </div>
-                                    <style>
-                                        .button-delete {
-                                            width: 50px;
-                                            height: 50px;
-                                            border-radius: 50%;
-                                            background-color: rgb(20, 20, 20);
-                                            border: none;
-                                            font-weight: 600;
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: center;
-                                            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-                                            cursor: pointer;
-                                            transition-duration: .3s;
-                                            overflow: hidden;
-                                            position: relative;
-                                        }
+                                @endif
 
-                                        .svgIcon {
-                                            width: 12px;
-                                            transition-duration: .3s;
-                                        }
-
-                                        .svgIcon path {
-                                            fill: white;
-                                        }
-
-                                        .button-delete:hover {
-                                            width: 140px;
-                                            border-radius: 50px;
-                                            transition-duration: .3s;
-                                            background-color: rgb(255, 69, 69);
-                                            align-items: center;
-                                        }
-
-                                        .button-delete:hover .svgIcon {
-                                            width: 50px;
-                                            transition-duration: .3s;
-                                            transform: translateY(60%);
-                                        }
-
-                                        .button-delete::before {
-                                            position: absolute;
-                                            top: -20px;
-                                            content: "Delete";
-                                            color: white;
-                                            transition-duration: .3s;
-                                            font-size: 2px;
-                                        }
-
-                                        .button-delete:hover::before {
-                                            font-size: 13px;
-                                            opacity: 1;
-                                            transform: translateY(30px);
-                                            transition-duration: .3s;
-                                        }
-
-                                        .button-delete:focus {
-                                            outline: none;
-                                        }
-                                    </style>
-                                    <button class="button-delete">
-                                        <svg viewBox="0 0 448 512" class="svgIcon">
-                                            <path
-                                                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                </div>
                             @endauth
                         </div>
 
@@ -411,84 +352,185 @@
 
 
                 @auth
-                    <style>
-                        .button {
-                            position: relative;
-                            width: 150px;
-                            height: 40px;
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                            border: 1px solid #34974d;
-                            background-color: #3aa856;
-                        }
+                    @if (Auth::user()->role->role === 'Admin')
+                        <style>
 
-                        .button,
-                        .button__icon,
-                        .button__text {
-                            transition: all 0.3s;
-                        }
+                        </style>
+                        <button type="button" class="button-item" style="margin-top: 20px">
 
-                        .button .button__text {
-                            transform: translateX(30px);
-                            color: #fff;
-                            font-weight: 600;
-                        }
-
-                        .button .button__icon {
-                            position: absolute;
-                            transform: translateX(109px);
-                            height: 100%;
-                            width: 39px;
-                            background-color: #34974d;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
-
-                        .button .svg {
-                            width: 30px;
-                            stroke: #fff;
-                        }
-
-                        .button:hover {
-                            background: #34974d;
-                        }
-
-                        .button:hover .button__text {
-                            color: transparent;
-                        }
-
-                        .button:hover .button__icon {
-                            width: 148px;
-                            transform: translateX(0);
-                        }
-
-                        .button:active .button__icon {
-                            background-color: #2e8644;
-                        }
-
-                        .button:active {
-                            border: 1px solid #2e8644;
-                        }
-
-                        .button:focus {
-                            outline: none;
-                        }
-                    </style>
-                    <button type="button" class="button" style="margin-top: 20px">
-
-                        <span class="button__text">Add Item</span>
-                        <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-                                stroke="currentColor" height="24" fill="none" class="svg">
-                                <line y2="19" y1="5" x2="12" x1="12"></line>
-                                <line y2="12" y1="12" x2="19" x1="5"></line>
-                            </svg></span>
-                    </button>
+                            <span class="button__text">Add Item</span>
+                            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="currentColor" height="24" fill="none" class="svg">
+                                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                                </svg></span>
+                        </button>
+                    @endif
                 @endauth
             </div>
         </div>
     </Section>
 
+@endsection
+
+
+
+@section('pop-up-controller')
+    @auth
+        @if (Auth::user()->role->role === 'Admin')
+
+            {{--
+                form untuk mengupload data minggu ke database
+                dengan method POST dan dengan action /sundaypost
+            --}}
+
+            <div class="form-sundays" style="display: none;">
+                <div class="container-form-sundays">
+                    <span style="text-align: center; margin: 10px 100px; font-size: 40px; font-weight: 400">Acara Minggu</span>
+                    <script>
+                        $(document).ready(function() {
+                            // Fungsi untuk mengubah teks pada elemen <span> ketika ada file yang diunggah
+                            function showFileName(input, targetSpan) {
+                                const fileName = input.files[0].name;
+                                $(targetSpan).text(fileName);
+                            }
+
+                            // Mengikat peristiwa "change" pada elemen <input type="file"> untuk thumbnail
+                            $('#sundaythumbnail').on('change', function() {
+                                showFileName(this, '#thumbnailFileName');
+                            });
+
+                            // Mengikat peristiwa "change" pada elemen <input type="file"> untuk agenda
+                            $('#sundayagenda').on('change', function() {
+                                showFileName(this, '#agendaFileName');
+                            });
+
+                            // Mengikat peristiwa "change" pada elemen <input type="file"> untuk warta
+                            $('#sundaywarta').on('change', function() {
+                                showFileName(this, '#wartaFileName');
+                            });
+                        });
+                    </script>
+                    <form style="margin-bottom: 10px" class="sundayForm" action="/sundaypost" method="POST"
+                        enctype="multipart/form-data">
+                        {{ csrf_field() }}
+
+                        <div class="gambar">
+                            <label for="sundaythumbnail" class="up-file">
+                                <img width="64" height="64"
+                                    src="https://img.icons8.com/pastel-glyph/64/image-file-add.png" alt="image-file-add" />
+                                <span id="thumbnailFileName">Thuhmbnail Minggu</span>
+                                <input style="display: none;" type="file" name="sundaythumbnail" id="sundaythumbnail">
+                            </label>
+
+                        </div>
+                        <div class="file-agenda-warta">
+                            <div class="agenda">
+                                <label for="sundayagenda" class="up-file">
+                                    <img width="50" height="50"
+                                        src="https://img.icons8.com/ios-filled/50/pdf-2--v1.png" alt="pdf-2--v1" />
+                                    <span id="agendaFileName">File Agenda</span>
+                                    <input style="display: none;" type="file" name="sundayagenda" id="sundayagenda">
+                                </label>
+
+                            </div>
+
+                            <div class="warta">
+                                <label for="sundaywarta" class="up-file">
+                                    <img width="50" height="50"
+                                        src="https://img.icons8.com/ios-filled/50/pdf-2--v1.png" alt="pdf-2--v1" />
+                                    <span id="wartaFileName">File Warta</span>
+                                    <input style="display: none;" type="file" name="sundaywarta" id="sundaywarta">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="date ipt">
+                            <label for="sundaydate">Tanggal Minggu</label>
+                            <input type="date" name="sundaydate" id="sundaydate">
+                        </div>
+                        <div class="description ipt">
+                            <label for="sundaydescription">Deskripsi Minggu</label>
+                            <textarea name="sundaydescription" id="sundaydescription" maxlength="255"></textarea>
+                        </div>
+
+                        <div class="live ipt">
+                            <label for="sundaylive">Link Live</label>
+                            <input type="url" name="sundaylive" id="sundaylive">
+                        </div>
+                        <div>
+                            <button style="padding-top: 10px" class="sunday-save-button" type="submit">UPLOAD</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+            {{--
+                form untuk mengupdate minggu terakhir yang ada di database
+                dengan method POST dan dengan action /sundayupdate
+            --}}
+
+            <div class="form-sunday-update" style="display: none">
+                <div class="container-form-sunday-update">
+                    <span style="text-align: center; margin: 10px 100px; font-size: 40px; font-weight: 400">Acara Minggu Update</span>
+                    <form style="margin-bottom: 10px" class="sundayForm-update" action="/sundayupdate" method="POST"
+                        enctype="multipart/form-data">
+                        {{ csrf_field() }}
+
+                        <div class="gambar">
+                            <label for="sundaythumbnail" class="up-file">
+                                <img width="64" height="64"
+                                    src="https://img.icons8.com/pastel-glyph/64/image-file-add.png" alt="image-file-add" />
+                                <span id="thumbnailFileName">{{$sunday->sundaythumbnail}}</span>
+                                <input style="display: none;" type="file" name="sundaythumbnail" id="sundaythumbnail">
+                            </label>
+
+                        </div>
+                        <div class="file-agenda-warta">
+                            <div class="agenda">
+                                <label for="sundayagenda" class="up-file">
+                                    <img width="50" height="50"
+                                        src="https://img.icons8.com/ios-filled/50/pdf-2--v1.png" alt="pdf-2--v1" />
+                                    <span id="agendaFileName">{{$sunday->sundayagenda}}</span>
+                                    <input style="display: none;" type="file" name="sundayagenda" id="sundayagenda">
+                                </label>
+
+                            </div>
+
+                            <div class="warta">
+                                <label for="sundaywarta" class="up-file">
+                                    <img width="50" height="50"
+                                        src="https://img.icons8.com/ios-filled/50/pdf-2--v1.png" alt="pdf-2--v1" />
+                                    <span id="wartaFileName">{{$sunday->sundaywarta}}</span>
+                                    <input style="display: none;" type="file" name="sundaywarta" id="sundaywarta">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="date ipt">
+                            <label for="sundaydate">Tanggal Minggu</label>
+                            <input type="date" name="sundaydate" id="sundaydate" value="{{$sunday->sundaydate}}">
+                        </div>
+                        <div class="description ipt">
+                            <label for="sundaydescription">Deskripsi Minggu</label>
+                            <textarea name="sundaydescription" id="sundaydescription" maxlength="255">{{$sunday->sundaydescription}}</textarea>
+                        </div>
+
+                        <div class="live ipt">
+                            <label for="sundaylive">Link Live</label>
+                            <input type="url" name="sundaylive" id="sundaylive" value="{{$sunday->sundaylive}}">
+                        </div>
+                        <div>
+                            <button style="padding-top: 10px" class="sunday-save-button" type="submit">UPDATE</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        @else
+        @endif
+    @endauth
 @endsection

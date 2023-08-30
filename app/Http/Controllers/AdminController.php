@@ -2,44 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
-use Illuminate\Support\Facades\Session;
-use App\Models\MsAccount;
-use App\Models\MsSunday;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 
-class DashboardController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function home()
+    public function index()
     {
-
-        $latestSunday = MsSunday::latest('sundaydate')->first();
-        $displayDate = Carbon::parse($latestSunday->sundaydate);
-
-
-
-        $today = Carbon::today();
-
-        $sunday = $latestSunday;
-        $beritas = Berita::whereDate('beritatime', '>=', $today)->orderBy('beritatime')->get();
-
-        return view('dashboard', compact('displayDate', 'sunday', 'beritas'));
-    }
-
-
-
-    public function gereja(){
-        return view('gereja');
+        //
     }
 
     /**

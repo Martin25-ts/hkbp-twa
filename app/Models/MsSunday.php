@@ -14,7 +14,15 @@ class MsSunday extends Model
     protected $primaryKey = 'sundayid';
 
 
-
+    protected $fillable = [
+        'userid',
+        'sundaydate',
+        'sundaythumbnail',
+        'sundayagenda',
+        'sundaywarta',
+        'sundaylive',
+        'sundaydescription',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'userid');

@@ -53,6 +53,30 @@ class MsSundaySeeder extends Seeder
                 'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
 
+            ],
+            [
+                'userid' => '1',
+                'sundaydate' => '2023-07-16',
+                'sundaythumbnail' => 'thumbnail.png',
+                'sundayagenda' => 'acara.pdf',
+                'sundaywarta' => 'warta.pdf',
+                'sundaylive' => 'https://www.youtube.com/live/SYgvRwWZQmY?feature=share',
+                'sundaydescription' => '',
+                'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
+
+            ],
+            [
+                'userid' => '1',
+                'sundaydate' => '2023-07-23',
+                'sundaythumbnail' => 'thumbnail.png',
+                'sundayagenda' => 'acara.pdf',
+                'sundaywarta' => 'warta.pdf',
+                'sundaylive' => 'https://www.youtube.com/live/09WGre5z0mY?feature=share',
+                'sundaydescription' => 'Alami pengalaman ibadah minggu gereja secara langsung, mengangkat jiwa dan semangat. Saksikan secara online, nikmati pesan rohani, musik pujian, dan kebersamaan dalam doa bersama. Bergabunglah dan rasakan kedamaian dari rumah atau di mana pun Anda berada.',
+                'created_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s')
+
             ]
         ];
 

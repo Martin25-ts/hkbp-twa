@@ -55,6 +55,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'bunnycdn' => [
+            'driver' => 'ftp',
+            'host' => 'storage.bunnycdn.com',
+            'port' => 21,
+            'username' => 'hkbp-cloud-storage',
+            'password' => '622094cb-3a4f-4be9-bd98d076d99a-2787-4b81',
+            'privateKey' => false,
+            'timeout' => 30,
+        ],
 
     ],
 
@@ -72,5 +81,15 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+
+    'ftp' => [
+        'driver'   => 'ftp',
+        'host'     => 'storage.bunnycdn.com',
+        'username' => 'hkbp-cloud-storage',
+        'password' => '23ee02ae-ebd3-4320-9b9963d639ce-26e8-4dbc',
+        'port'     => 21,
+        'passive'  => true,
+    ],
+
 
 ];

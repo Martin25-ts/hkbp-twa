@@ -18,22 +18,22 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
-    {
+    public function login(Request $request){
 
         $credentials = [
             'useremail' => $request->email,
             'password' => $request->password,
         ];
 
-        if(Auth::attempt($credentials,true)){
+
+        if (Auth::attempt($credentials, true)) {
             $user = Auth::user();
 
             $status = DB::table('users')
-            ->join('jemaats', 'users.jemaatid', '=', 'jemaats.jemaatid')
-            ->where('jemaats.jemaatid', $user->jemaatid)
-            ->select('jemaats.statusid')
-            ->first();
+                ->join('jemaats', 'users.jemaatid', '=', 'jemaats.jemaatid')
+                ->where('jemaats.jemaatid', $user->jemaatid)
+                ->select('jemaats.statusid')
+                ->first();
 
 
 
@@ -43,34 +43,49 @@ class AuthController extends Controller
                 if ($status->statusid === 'ST001') {
 
                     if ($request->remember) {
-                        Cookie::queue('mycookie',$request->email,9999999999999999);
+                        Cookie::queue('mycookie', $request->email, 9999999999999999);
 
-                        Cookie::queue('mypassword',$request->password,720);
+                        Cookie::queue('mypassword', $request->password, 720);
                     }
 
-                    Session::put('mysession',$credentials);
-                    return redirect()->route('dashboard');
+                    $expirationTime = now()->addMinutes(2);
+                    Session::put('mysession', $credentials);
+
+                    return redirect()->route('dashboard')->with('success', 'Login Berhasil');
 
                 } elseif ($status->statusid === 'ST002') {
                     Auth::logout();
-                    return [$credentials,$status,'RPP'];
-                } else {
-                    // Lakukan tindakan jika status lainnya
-                    return [$credentials,$status,'lainnya'];
+                    return redirect()->back()->withErrors(['error' => 'Akun Sedang Di Suspend']);
                 }
+                // else {
+                //     // Lakukan tindakan jika status lainnya
+                //     return redirect()->back()->withErrors(['error' => 'Status pengguna tidak valid.']);
+                // }
             }
+        }else{
+
+            return redirect()->back()->withErrors(['error' => 'Email atau password salah.'])->withInput();
         }
 
-        return [$credentials, Auth::user()];
     }
 
 
-    public function logout(){
+    // public function logout(){
 
 
+    //     Auth::logout();
+    //     return redirect('/');
+
+    // }
+
+    public function logout()
+    {
         Auth::logout();
-        return redirect('/');
-
+        return redirect('/')->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma' => 'no-cache',
+            'Expires' => 'Sat, 01 Jan 2000 00:00:00 GMT',
+        ]);
     }
     /**
      * Show the form for creating a new resource.

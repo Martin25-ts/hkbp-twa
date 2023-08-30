@@ -11,6 +11,8 @@
     <script src="{{ asset('js/pop-up-login-account.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     @stack('script-content')
     <Script>
@@ -25,14 +27,32 @@
         });
     </Script>
 
+    <script>
+        var flashMessage = "{{ session('success') ?? $errors->first('error') }}";
+        if (flashMessage) {
+            $(document).ready(function () {
+                var toastClass = flashMessage.includes('Berhasil') ? 'success' : 'error';
+                $('.toast.' + toastClass + ' .toast__title').text(flashMessage);
+                $('.toast.' + toastClass).addClass('show');
+                setTimeout(function() {
+                    $('.toast.' + toastClass).removeClass('show');
+                }, 5000); // Toast will disappear after 5 seconds
+            });
+        }
 
+
+
+    </script>
 
     @stack('style-content')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/main-header-navbar-footer-conten.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pop-up-login-account.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/content/toast.css') }}">
     <style>
         body {
             transition: filter 0.3s ease-out;
@@ -57,6 +77,44 @@
 </head>
 
 <body>
+
+
+    <div class="toast success" >
+        <div class="success__icon">
+            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                    d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                    fill="#393a37" fill-rule="evenodd"></path>
+            </svg>
+        </div>
+        <div class="toast__title" id="success__title"></div>
+        <div class="success__close"><svg height="20" viewBox="0 0 20 20" width="20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
+                    fill="#393a37"></path>
+            </svg></div>
+    </div>
+
+
+    <div class="toast error">
+        <div class="error__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
+                <path fill="#393a37"
+                    d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
+                </path>
+            </svg>
+        </div>
+        <div class="toast__title"  id="error__title"></div>
+        <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20"
+                height="20">
+                <path fill="#393a37"
+                    d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z">
+                </path>
+            </svg>
+        </div>
+    </div>
+
     @yield('navbar')
 
     <header style="box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;">
@@ -179,17 +237,22 @@
         </style>
     </footer>
 </body>
+
+{{--
+    sectiont buat pop up log in dan logout
+    ketika ada masuk auth akan menampilkan page logout
+    begitu juga sebaliknya.
+--}}
+
 @auth
-
-
     <div class="card-profile" style="display: none">
         <video width="100" height="100" preload="none"
             style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/11186/11186790.png') 50% 50% / fit no-repeat;"
             autoplay="autoplay" loop="true" muted="muted" playsinline="" __idm_id__="1622017">
             <source src="https://cdn-icons-mp4.flaticon.com/512/11186/11186790.mp4" type="video/mp4">
         </video>
-        <p class="cookieHeading">Role {{ Auth::user()->role->role}}</p>
-        <p class="cookieDescription">{{Auth::user()->jemaat->jemaatfname}} {{Auth::user()->jemaat->jemaatlname}}</p>
+        <p class="cookieHeading">Role {{ Auth::user()->role->role }}</p>
+        <p class="cookieDescription">{{ Auth::user()->jemaat->jemaatfname }} {{ Auth::user()->jemaat->jemaatlname }}</p>
 
         <div class="buttonContainer">
             <form action="/logout" method="get">
@@ -207,13 +270,15 @@
         <form action="/login" method="POST">
             @csrf
             <div class="user-box">
-                <input required name="email" id="email" type="text" value={{Cookie::get('mycookie') !== null ? Cookie::get('mycookie') : ""}}>
+                <input required name="email" id="email" type="text"
+                    value={{ Cookie::get('mycookie') !== null ? Cookie::get('mycookie') : '' }}>
                 <label>Email</label>
                 <small style="display: none">error</small>
 
             </div>
             <div class="user-box">
-                <input required name="password" id="password" type="password" value={{Cookie::get('mypassword') !== null ? Cookie::get('mypassword') : ""}}>
+                <input required name="password" id="password" type="password"
+                    value={{ Cookie::get('mypassword') !== null ? Cookie::get('mypassword') : '' }}>
                 <label>Password</label>
                 <small style="display: none">error</small>
             </div>
@@ -235,5 +300,11 @@
         </form>
     </div>
 @endauth
+
+{{--
+    Buat mengatur pop-up update atau pop-up controll lainnya
+    berdasarkna kebutuhan pagenya
+--}}
+@yield('pop-up-controller')
 
 </html>

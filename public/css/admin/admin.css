@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+/*Form Sunday*/
+
+/* css mengatur keseluruhan formnya*/
+.form-sundays,
+.form-sunday-update {
+
+    font-family: 'Roboto Slab', serif;
+    color: #589da4;
+
+
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+
+
+
+    border-radius: 40px;
+
+    background: #FFFF;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.container-form-sundays,
+.container-form-sunday-update{
+    padding: 20px 70px;
+}
+
+.sundayForm,
+.sundayForm-update{
+    color: black;
+}
+
+/* css untuk mengatur image thumbnail */
+.gambar{
+    border: 2px dashed #589da4;
+    border-radius: 20px ;
+    background-color: #eee;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* css untuk mengatur file pdf (warta dan agenda) */
+.file-agenda-warta{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.file-agenda-warta div{
+    border: 2px dashed #589da4;
+    border-radius: 20px ;
+    background-color: #eee;
+    padding: 5px 0;
+    min-width: 25%;
+}
+.file-agenda-warta div label,
+.gambar label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+}
+
+
+/* css untuk mengatur input (size,box, dan lain - lain) */
+.ipt {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+}
+
+.ipt label {
+    padding: 0;
+    margin: 0;
+}
+
+.ipt input,
+textarea {
+    background-color: #eee;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+    color: black;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
+}
+
+.ipt input:focus,
+textarea:focus {
+    outline-color: #589da4;
+}
+
+.description textarea {
+
+    resize: none;
+}
+
+textarea::-webkit-scrollbar {
+    width: 0px;
+}
+
+
+
+/* css buat mengatur button uploaddnya*/
+.sunday-save-button {
+    appearance: none;
+    background-color: #589da4;
+    border: 2px solid #589da4;
+    border-radius: 90px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+
+    min-width: 0;
+    outline: none;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 25%;
+    will-change: transform;
+}
+
+.sunday-save-button:disabled {
+    pointer-events: none;
+}
+
+.sunday-save-button:focus{
+    outline: none;
+}
+
+.sunday-save-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.sunday-save-button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
