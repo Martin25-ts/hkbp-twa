@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('beritaid'); // setiap id untuk berita
             $table->unsignedBigInteger('userid'); // user yang membuat thread
             $table->string('beritaimage',255); // url / path image
-            $table->string('beritatitle',255); // judul berita
+            $table->string('beritatitle',1000); // judul berita
             $table->string('beritadeskripsi'); // deskripsi utnuk berita
             $table->timestamps(); // waktu pembuatan dan update
 

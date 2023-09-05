@@ -3,7 +3,8 @@
 
 /* css mengatur keseluruhan formnya*/
 .form-sundays,
-.form-sunday-update {
+.form-sunday-update,
+.form-add-berita {
 
     font-family: 'Roboto Slab', serif;
     color: #589da4;
@@ -22,6 +23,8 @@
 
     display: flex;
     flex-direction: column;
+
+    z-index: 999999999;
 }
 
 .container-form-sundays,
@@ -30,12 +33,14 @@
 }
 
 .sundayForm,
-.sundayForm-update{
+.sundayForm-update,
+.form-berita{
     color: black;
 }
 
 /* css untuk mengatur image thumbnail */
-.gambar{
+.gambar,
+.img-berita{
     border: 2px dashed #589da4;
     border-radius: 20px ;
     background-color: #eee;
@@ -155,3 +160,50 @@ textarea::-webkit-scrollbar {
     box-shadow: none;
     transform: translateY(0);
 }
+
+.form-add-berita{
+    background: #f5f5f5;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    width: fit-content;
+    height: fit-content;
+
+    max-height: 95%;
+    min-width: 25%;
+
+    padding: 2rem;
+}
+
+.form-add-berita div,
+.form-add-berita form{
+    width: 100%;
+}
+
+.title-form-berita{
+    text-align: center;
+}
+
+.title-form-berita .title-berita{
+    font-size: 1.5em;
+}
+
+.form-berita{
+
+
+    max-height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-berita div{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    width: 100%;
+}
+
+
+
+

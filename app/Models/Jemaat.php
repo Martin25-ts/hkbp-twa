@@ -14,6 +14,7 @@ class Jemaat extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'jemaatimg',
         'jemaatfname',
         'jemaatlname',
         'jemaataddress',
@@ -23,12 +24,17 @@ class Jemaat extends Model
         'jemaatDOB',
         'jemaatphone',
         'relationshipid',
+        'positionid',
         'statusid'
     ];
 
     public function users()
     {
         return $this->hasMany(User::class, 'jemaatid');
+    }
+
+    public function position(){
+        return $this->belongsTo(Position::class, 'positionid');
     }
 
 

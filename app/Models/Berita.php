@@ -13,7 +13,13 @@ class Berita extends Model
 
     protected $primaryKey = 'beritaid';
 
-
+    protected $fillable = [
+        'userid',
+        'beritaimage',
+        'beritatitle',
+        'beritadeskripsi',
+        'beritatime'
+    ];
 
     public function user()
     {

@@ -48,6 +48,22 @@ class PositionSeeder extends Seeder
                 'positionid' => 'PS009',
                 'position' =>  'Ruas',
             ],
+            [
+                'positionid' => 'PS010',
+                'position' =>  'Ketua Naposo',
+            ],
+            [
+                'positionid' => 'PS011',
+                'position' =>  'Wakil Ketua Naposo',
+            ],
+            [
+                'positionid' => 'PS012',
+                'position' =>  'Sekretaris Naposo',
+            ],
+            [
+                'positionid' => 'PS013',
+                'position' =>  'Bendahara Naposo',
+            ],
 
         ];
         DB::table('ms_positions')->insert($pos);

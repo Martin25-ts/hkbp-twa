@@ -17,6 +17,7 @@ class JemaatSeeder extends Seeder
     public function run()
     {
         $jemaat = [
+            'jemaatimg' =>'asset/admin/user/1.jpg',
             'jemaatfname' => 'Martin Timoteus',
             'jemaatlname' => 'Siagian',
             'jemaataddress' => 'Twa komp depnaker L21/127',

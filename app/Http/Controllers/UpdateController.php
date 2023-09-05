@@ -14,12 +14,12 @@ class UpdateController extends Controller
     public function sundayUpdate(Request $request){
 
         $request->validate([
-            'sundaythumbnail' => 'nullable|mimes:png',
-            'sundayagenda' => 'nullable|mimes:pdf',
-            'sundaywarta' => 'nullable|mimes:pdf',
-            'sundaydate' => 'required|date',
-            'sundaylive' => 'required|url',
-            'sundaydescription' => 'required',
+            'sundaythumbnail' => 'nullable|image|mimes:png',
+            'sundayagenda' => 'nullable|mimetypes:application/pdf',
+            'sundaywarta' => 'nullable|mimetypes:application/pdf',
+            'sundaydate' => 'nullable|date',
+            'sundaylive' => 'nullable|url',
+            'sundaydescription' => 'nullable',
         ]);
 
         // Mendapatkan tanggal dari form

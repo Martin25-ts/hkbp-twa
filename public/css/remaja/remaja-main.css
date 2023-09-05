@@ -1,0 +1,50 @@
+*{
+    margin: none;
+    padding: none;
+
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+header{
+
+    width: 100%;
+    height: 43vh;
+    display: flex;
+    justify-content: center;
+    max-zoom: inherit;
+    background: #006C80;
+
+
+}
+header img{
+    width: 100%;
+    height: 100%;
+    max-width: max-content;
+
+}
+
+.nav{
+    background: #F5F5F5;
+
+    height: fit-content;
+    padding: 2em 0;
+}
+
+.nav-item .nav-link{
+    color: #696969;
+}
+
+@media (max-width: 763px) {
+    header {
+      height: 30vh;
+    }
+}
+
+@media (max-width: 487px) {
+    header {
+      height: 20vh;
+    }
+}

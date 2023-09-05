@@ -26,20 +26,13 @@ class DashboardController extends Controller
         $latestSunday = MsSunday::latest('sundaydate')->first();
         $displayDate = Carbon::parse($latestSunday->sundaydate);
 
-
-
         $today = Carbon::today();
 
         $sunday = $latestSunday;
+
         $beritas = Berita::whereDate('beritatime', '>=', $today)->orderBy('beritatime')->get();
 
-        return view('dashboard', compact('displayDate', 'sunday', 'beritas'));
-    }
-
-
-
-    public function gereja(){
-        return view('gereja');
+        return view('page.dashboard', compact('displayDate', 'sunday', 'beritas'));
     }
 
     /**

@@ -2,30 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\MsSunday;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
+
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function sundaystore(Request $request){
-        $request->validate(
+    public function sundaystore(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
             [
-                'sundaythumbnail' => 'nullable|mimes:png',
-                'sundayagenda' => 'nullable|mimes:pdf',
-                'sundaywarta' => 'nullable|mimes:pdf',
-                'sundaydate' => 'nullable|date',
-                'sundaylive' => 'nullable|url',
-                'sundaydescription' => 'nullable',
+                'sundaythumbnail' => 'required|mimes:png',
+                'sundayagenda' => 'required|mimes:pdf',
+                'sundaywarta' => 'required|mimes:pdf',
+                'sundaydate' => 'required|date',
+                'sundaylive' => 'required|url',
+                'sundaydescription' => 'required',
             ],
             [
-                'required_without_all' => 'Minimal satu dari :attribute harus diisi.',
+                'sundaythumbnail.required' => 'Thumbnail tidak boleh kosong.',
+                'sundaythumbnail.mimes' => 'Thumbnail harus berupa file dengan tipe PNG.',
+                'sundayagenda.required' => 'Agenda tidak boleh kosong.',
+                'sundayagenda.mimes' => 'Agenda harus berupa file dengan tipe PDF.',
+                'sundaywarta.required' => 'Warta tidak boleh kosong.',
+                'sundaywarta.mimes' => 'Warta harus berupa file dengan tipe PDF.',
+                'sundaydate.required' => 'Tanggal tidak boleh kosong.',
+                'sundaydate.date' => 'Tanggal harus dalam format tanggal yang benar.',
+                'sundaylive.required' => 'Tautan Live Streaming tidak boleh kosong.',
+                'sundaylive.url' => 'Tautan Live Streaming harus berupa URL yang valid.',
+                'sundaydescription.required' => 'Deskripsi tidak boleh kosong.',
             ]
         );
+
+        if ($validator->fails()) {
+
+            return redirect()->route('dashboard')->withErrors($validator)->withInput();
+        }
+
+
         // Mendapatkan tanggal dari form
         $sundayDate = Carbon::createFromFormat('Y-m-d', $request->input('sundaydate'));
 
@@ -51,7 +73,7 @@ class PostController extends Controller
         MsSunday::create([
             'userid' => $userId,
             'sundaydate' => $request->input('sundaydate'),
-            'sundaythumbnail' =>'thumbnail.png',
+            'sundaythumbnail' => 'thumbnail.png',
             'sundayagenda' => 'agenda.pdf',
             'sundaywarta' => 'warta.pdf',
             'sundaylive' => $request->input('sundaylive'),
@@ -59,7 +81,56 @@ class PostController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+        session()->flash('success', 'Data Minggu berhasil ditambahkan!');
+        return redirect()->route('dashboard');
+    }
 
-        return redirect('/dashboard')->with('success', 'Data Minggu berhasil ditambahkan!');
+
+    public function beritaPost(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'beritaimage' => 'required|mimes:png',
+                'beritatitle' => 'required',
+                'beritadescription' => 'required',
+                'beritatime' => 'required|date',
+
+            ],
+            [
+                'beritaimage.required' => 'Thumbnail tidak boleh kosong.',
+                'beritaimage.mimes' => 'Thumbnail harus berupa file dengan tipe PNG.',
+                'beritatitle.required' => 'Judul tidak boleh kosong.',
+                'beritadescription.required' => 'Deskripsi tidak boleh kosong.',
+                'beritatime.required' => 'Tanggal tidak boleh kosong.',
+                'beritatime.date' => 'Tanggal harus dalam format tanggal yang benar.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->route('dashboard')->withErrors($validator)->withInput();
+        }
+
+        $thumbnailFile = $request->file('beritaimage');
+        $thumbnailName = Str::random(40) . '.' . $thumbnailFile->getClientOriginalExtension();
+        // Membuat path ke direktori dengan tanggal sebagai bagian dari path
+        $folderPath = public_path('asset/Dashboard/berita/');
+        $thumbnailPath = $thumbnailFile->move($folderPath, $thumbnailName);
+
+        $userId = Auth::id();
+
+        Berita::create([
+            'userid' => $userId,
+            'beritaimage' => $thumbnailName,
+            'beritatitle' => $request->input('beritatitle'),
+            'beritadeskripsi' => $request->input('beritadescription'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'beritatime' => $request->input('beritatime'),
+        ]);
+
+        session()->flash('success', 'Berita Berhasil Ditambahkan');
+        return redirect()->route('dashboard');
+
     }
 }

@@ -27,23 +27,6 @@
         });
     </Script>
 
-    <script>
-        var flashMessage = "{{ session('success') ?? $errors->first('error') }}";
-        if (flashMessage) {
-            $(document).ready(function () {
-                var toastClass = flashMessage.includes('Berhasil') ? 'success' : 'error';
-                $('.toast.' + toastClass + ' .toast__title').text(flashMessage);
-                $('.toast.' + toastClass).addClass('show');
-                setTimeout(function() {
-                    $('.toast.' + toastClass).removeClass('show');
-                }, 5000); // Toast will disappear after 5 seconds
-            });
-        }
-
-
-
-    </script>
-
     @stack('style-content')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -51,7 +34,7 @@
     <link rel="stylesheet" href="{{ asset('css/pop-up-login-account.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/content/button.css') }}">
     <link rel="stylesheet" href="{{ asset('css/content/toast.css') }}">
     <style>
         body {
@@ -78,47 +61,144 @@
 
 <body>
 
-
-    <div class="toast success" >
-        <div class="success__icon">
-            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd"
-                    d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
-                    fill="#393a37" fill-rule="evenodd"></path>
-            </svg>
+    {{--
+        memberikan notification dalam bentuk pop up toast
+        command berupa succes atau error dengan type messege "Berhasil" jika
+        succes selain itu akan dianggap error
+        --}}
+    @if (session('success'))
+        <div class="toast success" id="successToast">
+            <div class="success__icon">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                        d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                        fill="#393a37" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="success__title" id="success__title">
+                {{ session('success') }}
+                {{-- pesan sukses akan ditampilkan di sini --}}
+            </div>
         </div>
-        <div class="toast__title" id="success__title"></div>
-        <div class="success__close"><svg height="20" viewBox="0 0 20 20" width="20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
-                    fill="#393a37"></path>
-            </svg></div>
-    </div>
+    @endif
+
+    @if ($errors->any())
 
 
-    <div class="toast error">
-        <div class="error__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
-                <path fill="#393a37"
-                    d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
-                </path>
-            </svg>
+
+        <div class="toast error"  id="errorToast" >
+            <div class="error__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
+                    <path fill="#393a37"
+                        d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
+                    </path>
+                </svg>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                @foreach ($errors->all() as $error)
+                    @if ($loop->first)
+                        <div class="error__title" id="error__title">
+                    @else
+                        <div class="error__title" id="error__title" style="margin-top: 15px">
+                    @endif
+                        {{ $error }}
+                    </div>
+                @endforeach
+            </div>
+
         </div>
-        <div class="toast__title"  id="error__title"></div>
-        <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20"
-                height="20">
-                <path fill="#393a37"
-                    d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z">
-                </path>
-            </svg>
-        </div>
-    </div>
+    @endif
 
     @yield('navbar')
 
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @auth
+            <a class="navbar-brand" href="{{ route('dashboard') }}"><img  width="100%" src="{{ asset('asset/Logo/Logo-HKBP-TWA.svg') }}"
+                    alt="hkbp-error" loading="lazy"></a>
+        @else
+            <a class="navbar-brand" href="{{ route('/') }}"><img width="150px" src="{{ asset('asset/Logo/Logo-HKBP-TWA.svg') }}"
+                    alt="hkbp-error" loading="lazy"></a>
+        @endauth
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                @auth
+                    <li class="nav-item @yield('home')">
+                        <a class="nav-link" href="{{ route('dashboard') }}">HOME<span class="sr-only">(current)</span></a>
+                    </li>
+                @else
+                    <li class="nav-item @yield('home')">
+                        <a class="nav-link" href="{{ route('/') }}">HOME<span class="sr-only">(current)</span></a>
+                    </li>
+                @endauth
+
+                <li class="nav-item @yield('gereja')">
+                    <a class="nav-link" href="{{ route('gereja')}}">GEREJA</a>
+                </li>
+                <li class="nav-item @yield('parhalado')">
+                    <a class="nav-link " href="/">PARHALADO</a>
+                </li>
+                <li class="nav-item @yield('kegiatan')">
+                    <a class="nav-link" href="/">KEGIATAN</a>
+                </li>
+                <li class="nav-item @yield('tentang')">
+                    <a class="nav-link" href="/">TENTANG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="https://www.google.com/maps/place/HKBP+Taman+Wisma+Asri/@-6.2146786,107.0258995,21z/data=!4m6!3m5!1s0x2e698f2853638a39:0x158fdb038dac775!8m2!3d-6.2147623!4d107.0258807!16s%2Fg%2F11hy3sjp9s?entry=ttu">MAP</a>
+                </li>
+
+                @auth
+                    @if (Auth::user()->role->role === 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">ADMIN</a>
+                        </li>
+                    @endif
+                @endauth
+
+            </ul>
+            <span class="navbar-text">
+                @auth
+                    <button class="button-logout" id="button-logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none"
+                            class="svg-icon">
+                            <g stroke-width="1.5" stroke-linecap="round" stroke="#5d41de">
+                                <circle r="2.5" cy="10" cx="10"></circle>
+                                <path fill-rule="evenodd"
+                                    d="m8.39079 2.80235c.53842-1.51424 2.67991-1.51424 3.21831-.00001.3392.95358 1.4284 1.40477 2.3425.97027 1.4514-.68995 2.9657.82427 2.2758 2.27575-.4345.91407.0166 2.00334.9702 2.34248 1.5143.53842 1.5143 2.67996 0 3.21836-.9536.3391-1.4047 1.4284-.9702 2.3425.6899 1.4514-.8244 2.9656-2.2758 2.2757-.9141-.4345-2.0033.0167-2.3425.9703-.5384 1.5142-2.67989 1.5142-3.21831 0-.33914-.9536-1.4284-1.4048-2.34247-.9703-1.45148.6899-2.96571-.8243-2.27575-2.2757.43449-.9141-.01669-2.0034-.97028-2.3425-1.51422-.5384-1.51422-2.67994.00001-3.21836.95358-.33914 1.40476-1.42841.97027-2.34248-.68996-1.45148.82427-2.9657 2.27575-2.27575.91407.4345 2.00333-.01669 2.34247-.97026z"
+                                    clip-rule="evenodd"></path>
+                            </g>
+                        </svg>
+                        <span class="lable">Profile</span>
+                    </button>
+                @else
+                    <div class="warning">
+                        <div class="warning__icon">
+                            <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z" fill="#393a37"></path>
+                            </svg>
+                        </div>
+                        <div class="warning__title">Not Support Device</div>
+                    </div>
+                    <button class="button-popup-login" id="button-popup-login">
+                        <img loading="lazy" src="https://img.icons8.com/ios-filled/50/login-rounded-right.png" alt="">
+                        LOGIN
+                    </button>
+                @endauth
+            </span>
+        </div>
+    </nav>
+
     <header style="box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;">
-        <img id="header-image" src="{{ asset('asset/Denah/ALTAR.JPG') }}" class="img-fluid" alt="Responsive image">
+        <img loading="lazy" id="header-image" src="{{ asset('asset/Denah/ALTAR.JPG') }}" class="img-fluid" alt="Responsive image">
     </header>
 
     @yield('content')
@@ -236,6 +316,16 @@
             }
         </style>
     </footer>
+
+    <script src="{{ asset('js/toaser.js') }}"></script>
+    <script>
+
+        var flashSuccessMessage = @json(session('success'));
+        window.flashSuccessMessage = flashSuccessMessage;
+
+        var errorMessages = @json($errors->all());
+        window.errorMessages = errorMessages;
+    </script>
 </body>
 
 {{--

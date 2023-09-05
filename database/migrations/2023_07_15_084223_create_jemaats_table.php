@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('jemaats', function (Blueprint $table) {
             $table->bigIncrements('jemaatid'); // jemaat id nya
+            $table->string('jemaatimg',255); // jemaat path image nya
             $table->string('jemaatfname',255); // Nama depan jemaat
             $table->string('jemaatlname',255); // marga jemaat
             $table->string('jemaataddress',255); // alamat dari jemaat

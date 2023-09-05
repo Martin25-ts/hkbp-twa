@@ -1,0 +1,39 @@
+main,
+.pengurus{
+
+    width: 100%;
+
+}
+
+.pengurus{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    row-gap: 1em;
+
+}
+
+.deck{
+    max-width: fit-content;
+
+}
+
+.title-deck{
+    text-align: center;
+}
+
+
+.profile-deck{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+
+
+
+

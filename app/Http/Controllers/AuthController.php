@@ -50,8 +50,8 @@ class AuthController extends Controller
 
                     $expirationTime = now()->addMinutes(2);
                     Session::put('mysession', $credentials);
-
-                    return redirect()->route('dashboard')->with('success', 'Login Berhasil');
+                    session()->flash('success', 'Login Berhasil');
+                    return redirect()->route('dashboard');
 
                 } elseif ($status->statusid === 'ST002') {
                     Auth::logout();
